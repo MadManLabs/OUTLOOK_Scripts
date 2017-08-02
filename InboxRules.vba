@@ -111,3 +111,30 @@ Public Sub EndScriptsLogout(item As Outlook.MailItem)
     
     
 End Sub
+
+Public Sub StartSAPScripts()
+    Dim Start, PauseTime As Double
+    
+    'Open SAP P01
+    Call SAPClickP01
+    
+    'Wait for SAP window to open
+    PauseTime = 15 'seconds
+    Start = Timer
+    Do While Timer < Start + PauseTime
+        DoEvents 'yield to other processes
+    Loop
+    
+    'Login on my SAP account
+    Call SAPLogon
+    
+    'Wait for SAP window to open
+    PauseTime = 5 'seconds
+    Start = Timer
+    Do While Timer < Start + PauseTime
+        DoEvents 'yield to other processes
+    Loop
+    
+    'Restart SAP scripts
+    Call StartSAPBatchScripts
+End Sub
